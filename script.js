@@ -1,18 +1,16 @@
-let nombrePropio = "Fu Hong"; 
+const inputIntento = document.getElementById('inputIntento');
+const btnAdivinar = document.getElementById('btnAdivinar');
+const mensaje = document.getElementById('mensaje');
+const contador = document.getElementById('contador');
+const historial = document.getElementById('historial');
+const btnReiniciar = document.getElementById('btnReiniciar');
+const tarjeta = document.getElementById('game-card');
 
-let apellidoPaterno = "Zhong";
+console.log('Elementos conectados:', inputIntento, btnAdivinar, mensaje, btnReiniciar, tarjeta);
 
-const CURSO= "Code 101";
+function mostrarMensaje(texto, color) {
+  mensaje.textContent = texto;
+  mensaje.style.color = color;
+}
 
-
-
-let saludo1 = "Hola me llamo "+ " " +  nombrePropio + " " + apellidoPaterno + " " + "y estoy en el curso "+ CURSO;
-
-let saludoModerno = 'Hola me llamo ${nombrePropio} ${apellidoPaterno} y estoy en el curso ${CURSO}'
-
-console.log(saludo1);
-
-let nombrePropio2 = "Fu Hong"; 
-let edad = "17"
-let saludo3 = "hola " + nombrePropio2 + " tienes " + edad + " años"
-console.log(saludo3)
+mostrarMensaje('¡Bienvenido al juego!', '#e94560');
