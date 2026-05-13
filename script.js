@@ -9,6 +9,20 @@ const tarjeta = document.getElementById('game-card');
 let numeroSecreto = Math.floor(Math.random() * 100) + 1;
 let intentos = 0;
 let historialIntentos = [];
+console.log('(DEBUG) número secreto:', + numeroSecreto)
+
+function cercania() {
+  let diferencia = Math.abs(inputIntento.value - numeroSecreto); 
+  return diferencia <= 10 ? '🔥 ¡Estás cerca!' : '❄️ Estás lejos';
+}
+
+function mensajeIntentos() {
+  if (intentos <= 3)  return '🔥 Vas genial';
+  if (intentos <= 6)  return '😅 Sigue intentando';
+  if (intentos <= 9)  return '⚠️ ¡Cuidado, casi sin intentos!';
+  return '💀 ¡Perdiste!';
+}
+
 function verificarIntento() {
   let valor = Number(inputIntento.value);
 
@@ -17,30 +31,44 @@ function verificarIntento() {
     return;
   }
  intentos++;
-  contador.textContent = 'Intentos: ' + intentos;
+  contador.textContent = 'Intentos: ' + intentos + ' / 10' + mensajeIntentos();
 
   // Agregar al historial
   historialIntentos.push(valor);
   historial.textContent = 'Historial: ' + historialIntentos.join(', ');
 
-  // Comparar con el número secreto
+
   if (valor === numeroSecreto) {
-    mostrarMensaje('🎉 ¡Correcto! Era el ' + numeroSecreto, '#ff0000');
+    mostrarMensaje('🎉 ¡Correcto! Era el ' + numeroSecreto,'#3ed12b');
     btnAdivinar.disabled = true;
     btnReiniciar.style.display = 'inline-block';
-    // Celebración visual: la tarjeta brilla verde
-    tarjeta.style.borderColor = '#ffffff';
-    tarjeta.style.boxShadow = '0 0 40px rgba(0, 255, 136, 0.3)';
+    afirmarTarjeta();
+    tarjeta.style.boxShadow = '0 0 40px rgba(64, 247, 73, 0.9)';
   } else if (valor > numeroSecreto) {
-    mostrarMensaje('📈 Muy alto. Intenta más bajo.', '#ff6b6b');
-  } else {
-    mostrarMensaje('📉 Muy bajo. Intenta más alto.', '#4ecdc4');
+    mostrarMensaje('Muy alto ↓ ' + cercania() + ' ', 'hsla(19, 100%, 61%, 0.91)'); 
+    tarjeta.style.borderColor = '#d60000';
+    tarjeta.style.boxShadow = '0 0 40px hsla(19, 100%, 61%, 0.91)';
+    sacudirTarjeta();
+  } 
+  else{
+    mostrarMensaje('Muy bajo ↓ ' + cercania() + ' ', 'rgba(46, 43, 196, 0.84)'); 
+    tarjeta.style.borderColor = '#000535';
+    tarjeta.style.boxShadow = '0 0 40px rgba(46, 43, 196, 0.84)';
+    sacudirTarjeta();
   }
 
-  // Limpiar input y enfocar
-  inputIntento.value = '';
+  if (intentos >= 10 && valor !== numeroSecreto) {
+  mostrarMensaje('❌ ¡Sin intentos! El número era: ' + numeroSecreto, '#e4193b');
+  btnAdivinar.disabled = true;
+  btnReiniciar.style.display = 'inline-block';
+  tarjeta.style.boxShadow = '0 0 40px rgba(212, 7, 7, 0.91)';
+  sacudirTarjeta();
+}
+  
+  inputIntento.value = ' ';
   inputIntento.focus();
 }
+
 
 btnAdivinar.addEventListener('click', verificarIntento);
 function reiniciarJuego() {
@@ -48,7 +76,7 @@ function reiniciarJuego() {
   intentos = 0;
   historialIntentos = [];
 
-  contador.textContent = 'Intentos: 0';
+  contador.textContent = 'Intentos: 0 / 10';
   historial.textContent = 'Historial: ';
   mostrarMensaje('🎯 ¡Nuevo juego! Adivina el número...', '#e94560');
 
@@ -57,14 +85,13 @@ function reiniciarJuego() {
   inputIntento.value = '';
   inputIntento.focus();
 
-  // Resetear celebración visual
-  tarjeta.style.borderColor = 'rgba(233, 69, 96, 0.3)';
-  tarjeta.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.4)';
+  
+  tarjeta.style.borderColor = 'rgba(255, 0, 43, 0.8)';
+  tarjeta.style.boxShadow = '0 8px 32px rgba(255, 0, 0, 0.74)';
 
   console.log('(DEBUG) Nuevo número secreto:', numeroSecreto);
 }
 
-// --- Conectar botón reiniciar ---
 btnReiniciar.addEventListener('click', reiniciarJuego);
 
 inputIntento.addEventListener('keypress', function(evento) {
@@ -73,14 +100,23 @@ inputIntento.addEventListener('keypress', function(evento) {
   }
 });
 
+function sacudirTarjeta() {
+  tarjeta.classList.add('shake');
+  tarjeta.addEventListener('animationend', () => {
+    tarjeta.classList.remove('shake'); 
+  }, { once: true }); 
+}
 
+function afirmarTarjeta() {
+  tarjeta.classList.add('affirm');
+  tarjeta.addEventListener('animationend', () => {
+    tarjeta.classList.remove('affirm');
+  }, { once: true });
+}
 
-
-function mostrarMensaje(texto, color) {
-  mensaje.textContent = texto;
+function mostrarMensaje(texto, color, cercaniaTexto = '') {
+  mensaje.textContent = texto + (cercaniaTexto ? '  ' + cercaniaTexto : '');
   mensaje.style.color = color;
 }
 
 mostrarMensaje('¡Bienvenido al juego!', '#e94560');
-
-

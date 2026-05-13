@@ -5,20 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adivina el Número</title>
  <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zen+Dots&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="game-card" id="game-card">
-    <h1>🎯 Adivina el Número</h1>
+    <h1>🎯<br> Adivina el Número</h1>
     <p class="subtitle">Estoy pensando en un número del 1 al 100...</p>
 
     <div class="controls">
       <input type="number" id="inputIntento" min="1" max="100" placeholder="?">
       <button id="btnAdivinar">Adivinar</button>
     </div>
-
     <p id="mensaje"></p>
     <p id="contador">Intentos: 0</p>
     <p id="historial">Historial: </p>
+<div>
+  <button id="btnReiniciar" role="button" style="display: none;">
+  <span class="button-82-shadow"></span>
+  <span class="button-82-edge"></span>
+  <span class="button-82-front text"> 
+    🔄 Jugar de nuevo
+  </span>
+</button>
+</div>
 
     <button id="btnReiniciar" style="display: none;">
       🔄 Jugar de nuevo

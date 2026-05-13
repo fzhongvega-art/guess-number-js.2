@@ -2,41 +2,54 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: "Poppins", sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-        background-image: url(signo.jpg);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      color: #eee;
       padding: 20px;
-    }
+color: #eee;
+      background: url(signo.jpg);
+  color: #eee;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  animation: animation 100s linear infinite;
+}
+
+@keyframes animation {
+   100%{
+    background-position:0px -3000px;
+  }
+}
+    
 
     .game-card {
       background: rgb(21, 0, 0);
-      border: 1px solid rgba(238, 37, 70, 0.663);
       border-radius: 20px;
       padding: 40px 30px;
       max-width: 420px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.685);
       transition: border-color 0.5s, box-shadow 0.5s;
     }
 
     h1 {
-      color: #e94560;
-      font-size: 1.8rem;
+      color: hsl(345deg 100% 47%);
+      font-size: 2rem;
       margin-bottom: 8px;
+      font-family:"Zen Dots", sans-serif;;
     }
 
     .subtitle {
       color: #aaa;
       margin-bottom: 24px;
+      size: 20px;
     }
 
     .controls {
@@ -59,13 +72,14 @@
       transition: border-color 0.3s, box-shadow 0.3s;
     }
     input:focus {
-      border-color: #e94560;
+      border-color: hsl(345deg 100% 47%);
       box-shadow: 0 0 12px rgba(233, 69, 96, 0.3);
     }
     /* Ocultar flechas del input numérico */
     input::-webkit-inner-spin-button,
     input::-webkit-outer-spin-button { -webkit-appearance: none; }
     input[type=number] { -moz-appearance: textfield; }
+
 
     button {
       padding: 12px 24px;
@@ -75,12 +89,165 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
+    }
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-8px); }
+  30%  { transform: translateX(8px); }
+  45%  { transform: translateX(-6px); }
+  60%  { transform: translateX(6px); }
+  75%  { transform: translateX(-3px); }
+  90%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s ease;
+}
+
+@keyframes afirmacion {
+  0%   { transform: translateY(0) scale(1); }
+  20%  { transform: translateY(-10px) scale(1.02); }
+  40%  { transform: translateY(0px) scale(1); }
+  60%  { transform: translateY(-5px) scale(1.01); }
+  80%  { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.affirm {
+  animation: afirmacion 0.6s ease;
+}
+
+    #btnAdivinar {
+       padding: 12px 24px;
+      font-size: 18px;
+      background-color: hsl(345deg 100% 47%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
       transition: transform 0.2s, background-color 0.3s;
     }
-    button:hover {
-      background-color: #d63d56;
-      transform: translateY(-2px);
-    }
+    #btnAdivinar:hover {
+      background-color: #f1052d;
+     animation: shake 0.5s;
+  animation-iteration-count: 10;
+  } 
+
+#btnReiniciar {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-82-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+.button-82-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.button-82-front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: hsl(345deg 100% 47%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+@media (min-width: 768px) {
+  .button-82-front {
+    font-size: 1.25rem;
+    padding: 12px 42px;
+  }
+}
+
+#btnReiniciar:hover {
+  filter: brightness(110%);
+  -webkit-filter: brightness(110%);
+}
+
+#btnReiniciar:hover .button-82-front {
+  transform: translateY(-6px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+#btnReiniciar:active .button-82-front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+#btnReiniciar:hover .button-82-shadow {
+  transform: translateY(4px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+#btnReiniciar:active .button-82-shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+#btnReiniciar:focus:not(:focus-visible) {
+  outline: none;
+}
+  
+
+  @keyframes shake {
+   0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    50% { transform: translate(-4px, -4px) rotate(-2deg); }
+    80% { transform: translate(4px, 4px) rotate(2deg); }
+  }
+    
     button:active { transform: translateY(1px); }
     button:disabled {
       opacity: 0.5;
@@ -97,6 +264,7 @@
 
     #historial {
       margin-top: 20px;
+      margin-bottom: 20px;
       font-size: 14px;
       color: #aaa;
     }
@@ -109,6 +277,6 @@
     @media (max-width: 480px) {
       .game-card { padding: 30px 20px; }
       .controls { flex-direction: column; align-items: center; }
-      input { width: 80%; }
+      input { width: 110%; }
       button { width: 80%; }
     }
